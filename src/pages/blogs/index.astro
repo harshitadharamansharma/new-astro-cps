@@ -1,0 +1,65 @@
+---
+import Layout from "../../layouts/BlogsPageLayout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BlogCardLatest from "../../components/ContentSection/BlogCardLatest.astro";
+import BlogCard2 from "../../components/ContentSection/BlogCard2.astro";
+import BlogCardFeatured from "../../components/ContentSection/BlogCardFeatured.astro";
+
+import SearchForm from "../../components/SearchForm.astro";
+import Pagination from "../../components/ContentSection/Pagination.astro";
+
+const allBlogArticles: CollectionEntry<'blogs'>[] = (await getCollection('blogs'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Find the most recent article with the "featured" tag
+const featuredArticle = allBlogArticles.find((article) => article.data.blogTags.includes('featured'));
+
+
+import { ARTICLES_PER_PAGE } from "../../consts";
+const currentPage: number | null = +Astro.url.searchParams.get('page')! || 1;
+
+
+
+const totalPages: number = Math.ceil(allBlogArticles.length / ARTICLES_PER_PAGE);
+
+const articlesForPage: CollectionEntry<'blogs'>[] = allBlogArticles.slice((currentPage - 1) * ARTICLES_PER_PAGE, currentPage * ARTICLES_PER_PAGE);
+
+
+---
+
+
+
+<Layout
+	title="Lab Articles"
+	description="Lorem ipsum dolor sit amet"
+	heroImage="blog-placeholder-about.jpg"
+>
+<section class="my-10 mx-auto w-[80rem]"><SearchForm /></section>
+
+	<section class=" mx-auto flex justify-center">
+
+		<ul class=" flex flex-col md:flex-row flex-start gap-7 items-stretch flex-wrap columns-1 sm:columns-2 md:columns-4 my-8">
+
+			{articlesForPage.map((article, index) => (
+				index === 0 ? (
+					<BlogCardLatest blog={article} slug={`/blogs/${article.slug}`} />
+				) : (
+					<BlogCard2 blog={article} slug={`/blogs/${article.slug}`} /> 
+				)
+			))}
+		</ul>
+
+	</section>
+	<section class="my-4 mx-auto ">
+	<Pagination 
+	currentPage={currentPage} 
+	totalPages={totalPages} 
+	disablePrevious={currentPage === 1} 
+	disableNext={currentPage === totalPages} 
+	/>
+</section>
+
+</Layout>
+
+

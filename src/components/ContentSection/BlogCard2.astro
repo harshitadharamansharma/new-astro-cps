@@ -1,0 +1,60 @@
+---
+const { blog , slug } = Astro.props;
+
+// Destructure the blog fields from blog.data
+const { title, description, pubDate, pubBy, heroImage, blogCategory, blogTags, blogCardImage, readTime } = blog.data;
+
+import { formatDate } from '../../js/utils';
+import ButtonOutline from '../Buttons/ButtonOutline.astro';
+import Tags from '../Buttons/Tags.astro';
+
+
+// console.log(blogCardImage);
+---
+
+<div class="blog-card items-stretch relative max-w-sm bg-white border border-gray-200 rounded-sm shadow-sm-light dark:bg-gray-800 dark:border-gray-700 hover:shadow-md group">
+  <a class="relative overflow-hidden" href={ slug } aria-hidden="true" tabindex="-1">
+    <img
+      src={blogCardImage?.src || heroImage}
+      alt={blogCardImage?.alt || 'Blog image'}
+      width="400"
+      height="250"
+      class="object-cover overflow-hidden aspect-video"
+    >
+    <div class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-40"></div>
+  </a>
+
+  <div class="p-5 flex flex-col items-start gap-2 mb-6">
+    <!-- <div class="tags flex flex-row">
+      {blogTags?.map((tag) => (
+        <span class="mx-2 font-semibold uppercase transition hover:translate-x-1 hover:scale-105 hover:text-[var(--accent)] bg-gray-100 text-gray-800 text-xs me-2 px-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+          <a href={`/articles/tag/`+ tag} }>{tag}
+          </a>
+        </span>
+      ))}
+    </div> -->
+
+    <Tags tags={blogTags} />
+
+    <a href={ slug }>
+      <p class="text-2xl font-bold text-gray-900 dark:text-white transition hover:text-[var(--accent)]">{title}</p>
+    </a>
+
+    <a href={`/blogs/author/`+ pubBy}>
+      <p class="text-sm italic font-semibold text-gray-400 hover:translate-x-1 hover:scale-105 hover:text-[var(--accent)]">By {pubBy}</p>
+    </a>
+
+    <div class="flex gap-2">
+      <p class="text-sm font-semibold text-[var(--accent)]">{formatDate(pubDate)}</p>
+      { readTime && <p class="text-sm font-poppins font-semibold text-[var(--accent)]"> | </p>
+      <p class="text-sm font-poppins font-semibold text-[var(--accent)]"> { readTime } Read</p>
+    }
+      </div>
+
+    <p class="mt-3 text-sm font-normal text-gray-700 dark:text-gray-400 pb-16">{description}</p>
+
+    <div class="flex justify-around mx-auto absolute bottom-8 left-28">
+      <ButtonOutline content="Read Article" href={ slug }/>
+    </div>
+  </div>
+</div>

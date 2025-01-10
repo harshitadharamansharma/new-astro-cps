@@ -1,0 +1,138 @@
+---
+export const prerender = true
+
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+import Layout from "../../layouts/EventsPageLayout.astro";
+
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Calendar from "../../components/ContentSection/Calendar.astro";
+
+import Calendarr from '../../components/ContentSection/Calendarr.jsx';
+import HeadingStyle4 from '../../components/Headings/HeadingStyle4.astro';
+
+import EventCard2 from "../../components/ContentSection/EventCard2.astro";
+
+
+// // Fetch and filter events for upcoming ones
+// const allEvents: CollectionEntry<'events'>[] = (await getCollection('events'))
+//     .filter(event => new Date(event.data.eventDate) >= new Date())
+//     .sort((a, b) => new Date(a.data.eventDate) - new Date(b.data.eventDate));
+
+// const allEvents: CollectionEntry<'events'>[] = (await getCollection('events')).sort(
+// 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+// );
+
+const allEvents: CollectionEntry<'events'>[] = (await getCollection('events')).sort(
+	(a, b) => b.data.eventDate.valueOf() - a.data.eventDate.valueOf()
+);
+
+
+const calendarEvents = [
+  {
+    title: 'Hardcoded Event',
+    start: '2024-10-01T09:00:00', // Adjust the date and time as needed
+  },
+];
+
+---
+<!-- debug -->
+<!-- <pre>{JSON.stringify(allEvents, null, 2)}</pre> -->
+
+<Layout
+title="Events"
+description="Lorem ipsum dolor sit amet"
+heroImage="blog-placeholder-about.jpg"
+>
+
+<section class="h-full mx-64">
+    <HeadingStyle4 Text="Event Schedule" Case="titlecase", ColorHex="#0000ff"/>
+    <!-- Watch hydration video   the react function is not using this prop -->
+    <Calendarr client:only
+     events={allEvents}
+     />
+</section>
+
+<!-- <section class="h-[50rem]"> -->
+    <!-- Watch hydration video   the react function is not using this prop -->
+    <!-- <Calendar2 client:only events={allEvents}/> -->
+<!-- </section> -->
+
+<section class="h-full">
+    <HeadingStyle4 Text="Events" Case="titlecase", ColorHex="#0000ff"/>
+    <div class="w-[80rem] mx-auto flex justify-center">
+
+    
+		<ul class="flex flex-col md:flex-row flex-start gap-7 items-stretch flex-wrap my-8">
+
+            {allEvents.map((event)=>  <EventCard2 event={event} slug={`/events/${event.slug}`} /> )}
+   
+            
+		</ul>
+        </div>
+	</section>
+</Layout>
+
+
+
+
+<!-- 
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead
+            title={SITE_TITLE}
+            description={SITE_DESCRIPTION}
+        />
+    </head>
+    <body class="bg-white text-gray-900">
+        <Header />
+        <main class="w-[960px] mx-auto">
+            <section class="event-calendar">
+                <Calendar events={allEvents} />
+            </section>
+            <section>
+                <ul class="flex flex-wrap gap-8 list-none p-0 m-0">
+                    {
+                        allEvents.map((event, index) => (
+                            <li
+                                class={`${
+                                    index === 0 ? "w-full mb-4 text-center" : "w-[calc(50%-1rem)]"
+                                }`}>
+                                <a
+                                    href={`/events/${event.slug}/`}
+                                    class="block no-underline transition duration-200 ease-in-out">
+                                    <img
+                                        width={720}
+                                        height={360}
+                                        src={event.data.heroImage}
+                                        alt=""
+                                        class={`${
+                                            index === 0 ? "w-full mb-4" : "mb-2 rounded-lg"
+                                        } transition-shadow duration-200 ease-in-out hover:shadow-lg`}
+                                    />
+                                    <h4
+                                        class={`${
+                                            index === 0 ? "text-3xl" : "text-xl"
+                                        } m-0 text-gray-900 leading-none`}>
+                                        {event.data.title}
+                                    </h4>
+                                    <p class="m-0 text-gray-500">
+                                        <FormattedDate date={event.data.eventDate} />
+                                    </p>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html> -->
+

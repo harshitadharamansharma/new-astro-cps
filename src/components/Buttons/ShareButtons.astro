@@ -1,0 +1,30 @@
+---
+// ShareButtons.astro
+const currentUrl = Astro.url.href;
+const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+const twitterShareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent("Check this out!")}`;
+const emailShareUrl = `mailto:?subject=${encodeURIComponent("Check this out!")}&body=${encodeURIComponent(currentUrl)}`;
+---
+
+<div class="flex items-center gap-4 mt-8 align-baseline mx-auto">
+  <!-- <p>SHARE</p> -->
+  <a href={facebookShareUrl} target="_blank" class="text-[var(--accent)]">
+    <svg fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+      <!-- Facebook icon SVG path -->
+      <i class="fa-brands fa-facebook-f"></i>
+    </svg>
+  </a>
+  <a href={twitterShareUrl} target="_blank" class="text-[var(--accent)]">
+    <svg fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+      <!-- Twitter icon SVG path -->
+      <!-- <i class="fa-brands fa-x-twitter"></i> -->
+      <i class="fa fa-twitter" aria-hidden="true"></i>
+    </svg>
+  </a>
+  <a href={emailShareUrl} target="_blank" class="text-[var(--accent)]">
+    <svg fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
+      <!-- Email icon SVG path -->
+      <i class="fa fa-envelope" aria-hidden="true"></i>
+    </svg>
+  </a>
+</div>

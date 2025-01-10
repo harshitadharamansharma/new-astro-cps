@@ -1,0 +1,19 @@
+---
+import JoinUs from "../components/ReactComponents/JoinUs";
+import Layout from "../layouts/BlogPost.astro";
+import TitleHeader from "../components/TitleHeader/TitleHeader.astro"
+// import TtlBgImg from "../components/ReactComponents/assets/joinus.jpg"
+---
+
+<Layout
+	title="Join Us"
+	description="Lorem ipsum dolor sit amet"
+	pubDate={new Date("August 25 2024")}
+	heroImage="blog-placeholder-about.jpg">
+
+	<!-- <TitleHeader title="Apply To CPS Lab" bgImg={ TtlBgImg } /> -->
+
+	<TitleHeader title="Apply To CPS Lab" />
+
+	<JoinUs client:only />
+</Layout>

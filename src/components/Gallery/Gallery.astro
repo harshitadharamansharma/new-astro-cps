@@ -1,0 +1,44 @@
+---
+let galleryImages = [];
+
+try {
+  const response = await fetch('/galleryImages.json');
+
+  // Check if the response is okay (status in the range 200-299)
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  galleryImages = await response.json();
+} catch (error) {
+  console.error('Error fetching gallery images:', error);
+  // Optionally, you can set galleryImages to an empty array or provide fallback data
+  galleryImages = [];
+}
+---
+
+<div class="gallery">
+  {galleryImages.length > 0 ? (
+    galleryImages.map((image) => (
+      <a href={image.src} data-lightbox="gallery" data-title={image.alt}>
+        <img src={image.src} alt={image.alt} class="gallery-image" />
+      </a>
+    ))
+  ) : (
+    <p>No images available.</p> // Message if no images are found
+  )}
+</div>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .gallery-image {
+    width: 200px; /* Adjust as needed */
+    height: auto;
+    cursor: pointer;
+  }
+</style>

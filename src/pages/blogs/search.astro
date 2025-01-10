@@ -1,0 +1,54 @@
+---
+import MainLayout from "../../layouts/BlogPost.astro";
+
+import SearchForm from "../../components/SearchForm.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+import BlogCard2 from "../../components/ContentSection/BlogCard2.astro";
+import ButtonOutline from "../../components/Buttons/ButtonOutline.astro";
+
+const query: string | null = Astro.url.searchParams.get('query');
+
+const allBlogArticles: CollectionEntry<'blogs'>[] = await getCollection('blogs');
+
+// Filter articles based on query
+const searchResults = allBlogArticles.filter(article => {
+  const titleMatch: boolean = article.data.title
+    .toLowerCase()
+    .includes(query!.toLowerCase());
+
+    const bodyMatch: boolean = article.body
+    .toLowerCase()
+    .includes(query!.toLowerCase());
+
+    const slugMatch: boolean = article.slug
+    .toLowerCase()
+    .includes(query!.toLowerCase());
+
+    return titleMatch || bodyMatch || slugMatch
+});
+---
+
+<MainLayout title="Search Results">
+  <div class="w-[10rem] mx-auto align-left my-8">
+  <ButtonOutline content="All Articles" href="/blogs"/>
+</div>
+
+<div class=" w-[80rem] mx-auto">
+  <SearchForm />
+  
+  <br>
+  
+  <h1 class="text-2xl my-6">Results For <strong>{query}</strong></h1>
+</div>
+
+  <div class="w-[80rem] mx-auto flex justify-center">
+  <ul class="flex flex-col md:flex-row flex-start gap-7 items-stretch flex-wrap columns-1 sm:columns-2 md:columns-4 my-8">
+    {searchResults.map(article => (
+      <BlogCard2 blog={article} />
+    ))}
+    </ul>
+  </div>
+</MainLayout>
+

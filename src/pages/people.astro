@@ -1,0 +1,23 @@
+---
+// import PeopleCards from "../components/People/PeopleCards.astro";
+import PeopleCategory from "../components/People/PeopleCategory.astro";
+import Layout from "../layouts/BlogPost.astro";
+
+---
+
+<Layout
+	title="Lab Members"
+	description="Lorem ipsum dolor sit amet"
+	pubDate={new Date("August 08 2021")}
+	heroImage="/blog-placeholder-about.jpg">
+	
+	<div class="flex flex-col item-center w-[90rem] mx-auto">
+	<PeopleCategory CategoryName = "Faculty Members" cardType="1"/>
+	<PeopleCategory CategoryName = "Associated Faculty" cardType="3"/>
+	<PeopleCategory CategoryName = "Research Scholars" cardType="3"/>
+	<PeopleCategory CategoryName = "Research Interns" cardType="2"/>
+	<!-- <PeopleCategory CategoryName = "Employees" cardType="2"/> -->
+	</div>
+
+</Layout>
+

@@ -1,0 +1,24 @@
+---
+import BlogCard2 from "./BlogCard2.astro";
+
+const { styles } = Astro.props
+
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+const allBlogArticles: CollectionEntry<'blogs'>[] = (await getCollection('blogs')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+import { HOMEPAGE_ARTICLE_LIMIT } from "../../consts";
+
+---
+
+
+<div class=` flex flex-start gap-7 justify-center items-stretch flex-wrap columns-1 sm:columns-2 md:columns-4 ${ styles }`>
+{allBlogArticles.slice(0,HOMEPAGE_ARTICLE_LIMIT).map((blog)=> <BlogCard2 blog={blog} slug={`/blogs/${blog.slug}`} />)}
+<!-- <EventCard event={AllEvents[0]}  /> -->
+</div>
+
+
+ 

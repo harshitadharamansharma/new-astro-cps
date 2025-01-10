@@ -1,0 +1,22 @@
+---
+import type { Props } from 'astro'
+
+const {
+    content, 
+    style, 
+    href, 
+    colorFill="var(--accent)",
+}:Props = Astro.props
+
+
+---
+
+
+<a type="button" href={ href } class=`flex items-center rounded-sm border border-2 border-[var(--accent)] py-2 px-4 font-semibold text-center text-md transition-all shadow-sm hover:shadow-lg text-[var(--accent)] hover:text-white hover:bg-[var(--accent)] hover:border-[${colorFill}] focus:text-white focus:bg-[${colorFill}] focus:border-[${colorFill}] active:border-[${colorFill}] active:text-white active:bg-[var(--accent-hover)] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none` type="button">
+  { content }
+   
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-1.5">
+      <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+    </svg>
+
+  </a>

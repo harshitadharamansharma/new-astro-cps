@@ -1,0 +1,111 @@
+---
+import Carousal from "../Carousal.astro";
+
+
+import type { Props } from 'astro'
+const { 
+    about_text, logo
+    } = Astro.props
+       
+---
+
+
+<div class="bg-white w-[95%] sm:w-[98%] mx-auto p-2 sm:p-4">
+    <div class="grid sm:grid-cols-6">
+        <div class="relative sm:col-span-4 h-full">
+            <Carousal />
+        
+        <div class="hidden md:block absolute -bottom-2  left-0 animated-text bg-white rounded-r-lg px-10 py-8">
+            <div class="text-sm ">CyPSi Lab <span></span></div>
+            <div class="text-xl ">Interdisciplinary Research Laboratory for </div> 
+            <!-- <div class="text-lg my-2"> @Institute of Informatics and Communication</div> -->
+            <!-- <div class="text-6xl font-semibold"> <span></span></div>  -->
+            <div class="text-4xl font-semibold text-[var(--accent)]"> Cyber Physical Systems </div> 
+
+            <!-- <div class="text-xl"> Institute of Informatics and Communication</div>
+            <div class="text-5xl">CyPSi Laboratory</div>  -->
+        </div>
+    </div>
+
+        <div class="sm:col-span-2 py-4 px-10 h-full bg-black opacity-75">
+            <div class="h-full flex flex-col items-left justify-end gap-1">
+                <img src={ logo.src } alt="CyPSi - Logo - white" class=" md:scale-[1.75] w-[100px] align-left mx-auto my-8 pb-4"/>
+                <h2
+                    class="uppercase text-white font-poppins font-bold text-xl sm:text-2xl leading-2 sm:leading-2">
+                    About the lab
+                </h2>
+                <p class="text-left my-4 text-white text-sm pr-8">
+                    {about_text}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+	animated-text{
+    font-size: 34px;
+    font-weight: 600;
+    min-width: 280px;
+}
+
+.animated-text span{
+    position: relative;
+}
+
+.animated-text span::before{
+    content: "Youtuber";
+    color: var(--accent);
+    animation: words 40s infinite;
+}
+
+.animated-text span::after{
+    content: "";
+    position: absolute;
+    width: calc(100% + 8px);
+    height: 100%;
+    background-color: #fff;
+    border-left: 2px solid var(--accent);
+    right: -8px;
+    animation: cursor 1.6s infinite, typing 40s steps(14) infinite;
+}
+
+@keyframes cursor {
+    to{
+        border-left: 2px solid #fff;
+    }
+}
+
+
+@keyframes words {
+    0%,20%{
+        content:  " @Institute of Informatics and Communication";
+    }
+    21%,40%{
+        content:  " @Institute of Informatics and Communication";
+    }
+    41%,60%{
+        content: " @University of Delhi";
+    }
+    61%,80%{
+        content: " @University of Delhi";
+    }
+    81%,100%{
+        content: " @University of Delhi";
+    }
+}
+
+@keyframes typing {
+    10%,15%,30%,35%,50%,55%,70%,75%,90%,95%{
+        width: 0;
+    }
+    5%,20%,25%,40%,45%,60%,65%,80%,85%{
+        width: calc(100% + 8px);
+    }
+}
+</style>
+
+
+

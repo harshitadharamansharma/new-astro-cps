@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTables Example</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-container label {
+            flex: 1;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .filter-container input[type="text"],
+        .filter-container select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .filter-container .filter-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-container input[type="text"]:focus,
+        .filter-container select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+        }
+
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+
+        .select2-container {
+            z-index: 10000;
+        }
+
+        .select2-dropdown {
+            z-index: 10001;
+            box-sizing: border-box;
+        }
+
+        .select2-selection {
+            min-height: 38px;
+        }
+
+        .select2-container--open .select2-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin-top: 4px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+            padding: 3px 10px;
+            margin-top: 2px;
+            margin-right: 2px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="filter-container">
+        <label for="publicationFilter">Search by Publication:</label>
+        <input type="text" id="publicationFilter" placeholder="Search by Publication">
+
+        <label for="publisherFilter">Search by Publisher:</label>
+        <input type="text" id="publisherFilter" placeholder="Search by Publisher">
+
+        <label for="authorFilter">Filter by Author:</label>
+        <select id="authorFilter" multiple></select>
+
+        <label for="authorLogic">Author Filter Logic:</label>
+        <select id="authorLogic">
+            <option value="OR">OR</option>
+            <option value="AND">AND</option>
+        </select>
+
+        <label for="keywordFilter">Search by Keyword:</label>
+        <input type="text" id="keywordFilter" placeholder="Search by Keyword">
+
+        <label for="yearFilter">Search by Year:</label>
+        <input type="text" id="yearFilter" placeholder="Search by Year">
+    </div>
+
+    <table id="example" class="display">
+        <thead>
+            <tr>
+                <th>Publication</th>
+                <th>Publisher</th>
+                <th>Author(s)</th>
+                <th>Keyword(s)</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row-3 odd">
+                <td class="column-1"><a href='https://link.springer.com/article/10.1007/s11042-024-18671-5'
+                        target="_blank" rel="noopener">Navigating the face recognition: unleashing <br> the power of
+                        few-shot learning through <br> metric-based insights</a></td>
+                <td class="column-2">Multimedia Tools and <br>Applications, <br>Springer US</td>
+                <td class="column-3">Sushant Jain, Amit Pundir,<br>Sanjeev Singh, Geetika Jain Saxena</td>
+                <td class="column-4">Deep learning, <br>Face recognition,<br> Meta learning</td>
+                <td class="column-5">2024</td>
+            </tr>
+            <tr class="row-4 even">
+                <td class="column-1"><a
+                        href='https://www.researchgate.net/publication/379309497_ACADEMIC_CREDIT_SYSTEM_IN_CONTRIBUTING_TO_ONLINE_SELF-REGULATED_LEARNING_FOR_THE_STUDENTS_IN_HIGHER_EDUCATION_OF_IRAQ'
+                        target="_blank" rel="noopener">ACADEMIC CREDIT SYSTEM IN CONTRIBUTING TO <br>ONLINE
+                        SELF-REGULATED LEARNING FOR <br>THE STUDENTS IN HIGHER EDUCATION OF IRAQ </a></td>
+                <td class="column-2">12th INTERNATIONAL SCIENTIFIC <br>RESEARCHES CONFERENCE</td>
+                <td class="column-3">Osamah Mohammed, Vajratiya Vajrobol, <br>Nitisha Aggarwal, Amit Pundir,<br> Geetika
+                    Saxena Jain, Sanjeev. Singh</td>
+                <td class="column-4">Credit System (ACS), <br>Online <br>Self-Regulated <br>Learning (OSRL)</td>
+                <td class="column-5">2024</td>
+            </tr>
+            <tr class="row-5 odd">
+                <td class="column-1"><a href='https://ieeexplore.ieee.org/abstract/document/10455408' target="_blank"
+                        rel="noopener">Large language model based framework for<br>knowledgebase coverage and
+                        correctness <br> using chatbot and human feedback</a></td>
+                <td class="column-2">IEEE</td>
+                <td class="column-3">Unmesh Shukla, Sanjeev Singh,<br>Amit Pundir, <br> Geetika Jain Saxena</td>
+                <td class="column-4">LLM, <br> Generative AI</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-6 even">
+                <td class="column-1"><a href='https://link.springer.com/article/10.1007/s40030-022-00668-8'
+                        target="_blank" rel="noopener">An improved deep convolutional neural network <br>for image-based
+                        apple plant leaf disease <br>detection and identification</a></td>
+                <td class="column-2">Journal of The Institution of <br>Engineers (India): Series A, <br>Springer India
+                </td>
+                <td class="column-3">Dharmendra Kumar Mahato, <br>Amit Pundir, Geetika Jain Saxena</td>
+                <td class="column-4">Deep learning, <br>Face recognition,<br> Transfer learning,</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-7 odd">
+                <td class="column-1"><a href='https://link.springer.com/article/10.1007/s11042-023-14841-z'
+                        target="_blank" rel="noopener">A new encryption model for multimedia content <br>using two
+                        dimensional <br>Brownian motion and coupled map lattice</a></td>
+                <td class="column-2">Multimedia Tools and<br> Applications, Springer US</td>
+                <td class="column-3">Mukesh Rawat, Anil Singh Bafila,<br>Sunil Kumar, Manish Kumar, <br>Amit Pundir,
+                    Sanjeev Singh</td>
+                <td class="column-4">Deep learning, <br>Face recognition,<br> Transfer learning,</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-8 even">
+                <td class="column-1"><a href='https://ieeexplore.ieee.org/abstract/document/10434764' target="_blank"
+                        rel="noopener">Exploring Face Recognition: A Comparative <br> Study Using Loss-Based
+                        Methodologies</a></td>
+                <td class="column-2">2023 IEEE 2nd ICDDS,<br> IEEE</td>
+                <td class="column-3">Sushant Jain, Amit Pundir,<br>Sanjeev Singh, Geetika Jain Saxena</td>
+                <td class="column-4">Deep learning, <br>Face recognition,<br> Transfer learning,</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-9 odd">
+                <td class="column-1"><a href='https://link.springer.com/article/10.1007/s13278-023-01145-1'
+                        target="_blank" rel="noopener">Identifying Discernible Indications of <br> Psychological
+                        Well-being Using ML - Explainable <br> AI in Reddit Social Media Interactions</a></td>
+                <td class="column-2">Social Network Analysis <br>and Mining, Springer Nature</td>
+                <td class="column-3">Thushari Pahalage, Nitisha Aggarwal<br>Vajratiya Vajrobol, Geetika Jain
+                    Saxena,<br>Sanjeev Singh, Amit Pundir</td>
+                <td class="column-4">NLP, Mental Health,<br> Machine Learning</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-10 even">
+                <td class="column-1"><a href='https://link.springer.com/chapter/10.1007/978-981-99-5994-5_7'
+                        target="_blank" rel="noopener">Time-series based prediction of Air<br>Quality Index using
+                        various machine learning <br> models</a></td>
+                <td class="column-2">International Conference on <br>Information Technology, <br> Springer Nature
+                    Singapore</td>
+                <td class="column-3">Ishita Pundir, Nitisha Aggarwal,<br>Sanjeev Singh</td>
+                <td class="column-4">Environment,<br> Machine Learning</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-11 odd">
+                <td class="column-1"><a href='https://arxiv.org/abs/2307.07526' target="_blank" rel="noopener">Can I say
+                        now machines can think?</a></td>
+                <td class="column-2">arXiv, Cornell <br>University</td>
+                <td class="column-3">Nitisha Aggarwal, Geetika Jain Saxena,<br>Sanjeev Singh, Amit Pundir</td>
+                <td class="column-4">Machine Learning</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-12 even">
+                <td class="column-1"><a href='https://aclanthology.org/2023.ltedi-1.12/' target="_blank"
+                        rel="noopener">Leveraging pre-trained Transformers for <br> Fine-Grained Depression Level
+                        Detection <br> in Social Media</a></td>
+                <td class="column-2">INCOMA Ltd., Shoumen, <br> Bulgaria, ACL Anthology</td>
+                <td class="column-3">Vajratiya Vajrobol, Nitisha Aggarwal,<br>Singh Karanpreet</td>
+                <td class="column-4">NLP, Mental Health,<br> Machine Learning</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-13 odd">
+                <td class="column-1"><a href='https://link.springer.com/article/10.1007/s10489-023-04662-w'
+                        target="_blank" rel="noopener">Mean-based Relief: An improved <br> feature selection method
+                        based on ReliefF</a></td>
+                <td class="column-2">Applied Intelligence, <br> Springer US</td>
+                <td class="column-3">Nitisha Aggarwal, Unmesh Shukla,<br>Geetika Jain Saxena, Mukesh Rawat,<br>Anil S.
+                    Bafila, Sanjeev Singh,<br>Amit Pundir</td>
+                <td class="column-4">Machine Learning, <br>Feature selection</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-14 even">
+                <td class="column-1"><a href='https://link.springer.com/article/10.1007/s41870-023-01512-3'
+                        target="_blank" rel="noopener">Explainable Cross-lingual Depression<br> Identification Based on
+                        Multi-head Attention <br> Networks in Thai Context</a></td>
+                <td class="column-2">International Journal <br>of Information Technology, <br>Springer Nature Singapore
+                </td>
+                <td class="column-3">Vajratiya Vajrobol, Nitisha Aggarwal,<br>Unmesh Shukla, Geetika Jain
+                    Saxena,<br>Sanjeev Singh, Amit Pundir</td>
+                <td class="column-4">NLP, Mental Health,<br> Machine Learning</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-15 odd">
+                <td class="column-1"><a href='https://www.publications.scrs.in/chapter/978-81-955020-2-8/35'
+                        target="_blank" rel="noopener">LGBT cyberbullying detection in Thai language<br>utilizing
+                        Transformers-based Algorithms</a></td>
+                <td class="column-2">Data Science and <br>Intelligent Computing <br>Techniques, SCRS<br> Publications
+                </td>
+                <td class="column-3">Vajratiya Vajrobol, Nitisha Aggarwal,<br>Unmesh Shukla, Geetika Jain
+                    Saxena,<br>Sanjeev Singh, Amit Pundir</td>
+                <td class="column-4">NLP, <br> Machine Learning</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-16 even">
+                <td class="column-1"><a href='https://ieeexplore.ieee.org/document/10040199' target="_blank"
+                        rel="noopener">Spatiotemporal Prediction of Chickenpox Cases<br>using Graph Attention
+                        Network</a></td>
+                <td class="column-2">2022 IEEE 19th <br>India Council International <br> Conference (INDICON)</td>
+                <td class="column-3">Nitisha Aggarwal, Ishita Pundir,<br>Unmesh Shukla, Sanjeev Singh</td>
+                <td class="column-4">Healthcare,<br> Machine Learning</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-17 odd">
+                <td class="column-1"><a href='https://pubmed.ncbi.nlm.nih.gov/36945177/' target="_blank"
+                        rel="noopener">Downregulation of lncRNA SNHG1 in hypoxia<br> and stem cells is associated with
+                        poor disease <br>prognosis in gliomas</a></td>
+                <td class="column-2">Cell Cycle</td>
+                <td class="column-3">Sanchit Gandhi, Ashish Bhushan,<br>Unmesh Shukla, Amit Pundir, <br>Sanjeev Singh,
+                    Tapasya Srivastava</td>
+                <td class="column-4">Healthcare</td>
+                <td class="column-5">2023</td>
+            </tr>
+            <tr class="row-18 even">
+                <td class="column-1"><a href='https://ictactjournals.in/paper/IJIVP_Vol_12_Iss_3_Paper_1_2615_2623.pdf'
+                        target="_blank" rel="noopener">AN IMPROVED CNN MODEL FOR <br>CLASSIFICATION OF APPLE LEAF
+                        DISEASE AND <br> VISUALIZATION USING WEIGHTED GRADIENT <br>CLASS ACTIVATION MAP<br />
+                    </a></td>
+                <td class="column-2">ICTACT Journal on Image &amp; <br> Video Processing</td>
+                <td class="column-3">Dharmendra Kumar Mahato,<br> Amit Pundir, Geetika Jain Saxena</td>
+                <td class="column-4">Deep learning, <br>Face recognition,<br> Meta learning</td>
+                <td class="column-5">2022</td>
+            </tr>
+            <tr class="row-19 odd">
+                <td class="column-1"><a href='https://aclanthology.org/2022.icon-wlli.2/' target="_blank"
+                        rel="noopener">CoLI-Kanglish: Word-Level Language <br> Identification in
+                        Code-Mixed<br>Kannada-English Texts Shared Task using<br>the Distilka Model</a></td>
+                <td class="column-2">19th International <br>Conference on Natural <br>Language Processing 2022</td>
+                <td class="column-3">Vajratiya Vajrobol</td>
+                <td class="column-4">NLP, <br> Machine Learning</td>
+                <td class="column-5">2022</td>
+            </tr>
+            <tr class="row-20 even">
+                <td class="column-1"><a href='#' target="_blank" rel="noopener">Depression detection in Thai language
+                        posts<br>based on attentive network models</a></td>
+                <td class="column-2">CEUR Workshop <br>Proceedings</td>
+                <td class="column-3">Vajratiya Vajrobol, Unmesh Shukla,<br>Amit Pundir, Sanjeev Singh,<br>Geetika Jain
+                    Saxena</td>
+                <td class="column-4">NLP, <br> Mental Health,<br> Machine Learning</td>
+                <td class="column-5">2022</td>
+            </tr>
+            <tr class="row-21 odd">
+                <td class="column-1"><a href='https://ieeexplore.ieee.org/document/9938172' target="_blank"
+                        rel="noopener">MeDiFakeD: Medical Deepfake Detection<br>using Convolutional Reservoir
+                        Networks</a></td>
+                <td class="column-2">2022 IEEE Global Conference on <br> Computing, Power and <br> Communication
+                    Technologies <br> (GlobConPT)</td>
+                <td class="column-3">Rajat Budhiraja, Manish Kumar,<br>M.K. Das, Anil Singh Bafila,<br>Sanjeev Singh
+                </td>
+                <td class="column-4">Healthcare</td>
+                <td class="column-5">2022</td>
+            </tr>
+            <tr class="row-22 even">
+                <td class="column-1"><a href='https://ieeexplore.ieee.org/document/9695482' target="_blank"
+                        rel="noopener">Cyber-Physical Systems Enabled Transport <br> Networks in Smart Cities:
+                        Challenges and <br> Enabling Technologies of the New Mobility Era</a></td>
+                <td class="column-2">IEEE Access</td>
+                <td class="column-3">Amit Pundir, Sanjeev Singh,<br>Manish Kumar, Anil S. Bafila,<br> Geetika J. Saxena
+                </td>
+                <td class="column-4">Smart Transport</td>
+                <td class="column-5">2022</td>
+            </tr>
+            <tr class="row-23 odd">
+                <td class="column-1"><a href='https://amity.edu/incite2022/' target="_blank" rel="noopener">An Improved
+                        Technique for Risk Prediction of <br>Polycystic Ovary Syndrome (PCOS) Using Feature <br>
+                        Selection and Machine Learning</a></td>
+                <td class="column-2">Computational Intelligence: <br> Select Proceedings of <br>InCITe 2022</td>
+                <td class="column-3">Nitisha Aggarwal, Unmesh Shukla, <br>Geetika J. Saxena, Manish Kumar,<br> Anil S.
+                    Bafila, Sanjeev Singh, <br>Amit Pundir</td>
+                <td class="column-4">Healthcare</td>
+                <td class="column-5">2022</td>
+            </tr>
+            <tr class="row-24 even">
+                <td class="column-1"><a href='https://ieeexplore.ieee.org/abstract/document/9792679' target="_blank"
+                        rel="noopener">Predictive Analysis based on Feature Relevance <br>Estimation for Survival Rate
+                        Post Heart Failure <br> Using Ensemble Learners</a></td>
+                <td class="column-2">2022 IEEE International <br>Conference on Distributed Computing <br>and Electrical
+                    Circuits and <br>Electronics (ICDCECE)</td>
+                <td class="column-3">Kunal Sharma, Rahul Chawla,<br>Unmesh Shukla, Nitisha Aggarwal, <br>Anil S. Bafila,
+                    Sanjeev Singh, <br>Amit Pundir, Geetika J. Saxena</td>
+                <td class="column-4">Healthcare</td>
+                <td class="column-5">2022</td>
+            </tr>
+            <tr class="row-25 odd">
+                <td class="column-1"><a href='https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0246737'
+                        target="_blank" rel="noopener">A reservoir computing approach for<br>forecasting and
+                        regenerating both <br>dynamical and time-delay controlled <br>financial system behavior</a></td>
+                <td class="column-2">Plos one</td>
+                <td class="column-3">Rajat Budhiraja, Manish Kumar,<br>Mrinal K. Das, Anil Singh Bafila,<br>Sanjeev
+                    Singh</td>
+                <td class="column-4">Information<br>Security</td>
+                <td class="column-5">2021</td>
+            </tr>
+            <tr class="row-26 even">
+                <td class="column-1"><a
+                        href='https://link.springer.com/article/10.1007/s12647-020-00427-9'>MIMO/Diversity Antenna with
+                        Neutralization Line for <br>WLAN Applications</a></td>
+                <td class="column-2">MAPAN</td>
+                <td class="column-3">Sanjeev Singh et al.</td>
+                <td class="column-4">Networks</td>
+                <td class="column-5">2021</td>
+            </tr>
+            <tr class="row-27 odd">
+                <td class="column-1"><a href='https://doi.org/10.1371/journal.pone.0246737' target="_blank"
+                        rel="noopener">A Reservoir Computing Approach for Forecasting <br>and Regenerating both
+                        Dynamical and Time-delay <br>Controlled Financial System Behavior</a></td>
+                <td class="column-2">Plos one</td>
+                <td class="column-3">Sanjeev Singh et al.</td>
+                <td class="column-4">Machine <br>Learning</td>
+                <td class="column-5">2021</td>
+            </tr>
+            <tr class="row-28 even">
+                <td class="column-1"><a href='https://ieeexplore.ieee.org/document/9638672' target="_blank"
+                        rel="noopener">An Improved Decision Support System for <br>Identification of Abnormal EEG
+                        Signals Using a <br>1D Convolutional Neural Network and <br>Savitzky-Golay Filtering </a></td>
+                <td class="column-2">IEEE Access</td>
+                <td class="column-3">Unmesh Shukla, Geetika J. Saxena,<br>Manish Kumar, Anil S. Bafila<br>Amit Pundir,
+                    Sanjeev Singh</td>
+                <td class="column-4">Healthcare</td>
+                <td class="column-5">2021</td>
+            </tr>
+            <tr class="row-29 odd">
+                <td class="column-1"><a href='https://www.nature.com/articles/s41598-020-70713-8' target="_blank"
+                        rel="noopener">Analysis of Rice Nuclear Localized Seed Expressed <br>Proteins and their Database
+                        (RSNP-DB)</a></td>
+                <td class="column-2">Scientific Reports</td>
+                <td class="column-3">Sanjeev Singh et al.</td>
+                <td class="column-4">Healthcare</td>
+                <td class="column-5">2020</td>
+            </tr>
+            <tr class="row-30 even">
+                <td class="column-1"><a href='https://www.tandfonline.com/doi/abs/10.1080/09205071.2020.1757516'
+                        target="_blank" rel="noopener">Low-profile 2.4/5.8 GHz MIMO/Diversity Antenna for <br>WLAN
+                        Applications</a></td>
+                <td class="column-2">Journal of Electromagnetic <br>Waves and Applications</td>
+                <td class="column-3">Sanjeev Singh et al.</td>
+                <td class="column-4">Networks</td>
+                <td class="column-5">2020</td>
+            </tr>
+            <tr class="row-31 odd">
+                <td class="column-1"><a href='https://www.jpier.org/pierc/pier.php?paper=19052005' target="_blank"
+                        rel="noopener">CPW fed Ultra-Wideband Dual Sense Circularly <br>Polarized Slot Antenna</a></td>
+                <td class="column-2">International Journal of <br>Microwave and Wireless <br>Technologies</td>
+                <td class="column-3">Sanjeev Singh et al.</td>
+                <td class="column-4">Networks</td>
+                <td class="column-5">2019</td>
+            </tr>
+            <tr class="row-32 even">
+                <td class="column-1"><a href='https://doi.org/10.1017/S1759078719000461' target="_blank"
+                        rel="noopener">Broadband CPW-fed Circularly Polarized Antenna for<br>IoT-based Navigation
+                        System</a></td>
+                <td class="column-2">International Journal of <br>Microwave and Wireless <br>Technologies</td>
+                <td class="column-3">Sanjeev Singh et al.</td>
+                <td class="column-4">Wireless Technology</td>
+                <td class="column-5">2019</td>
+            </tr>
+            <tr class="row-33 odd">
+                <td class="column-1"><a href='https://www.sciencedirect.com/science/article/pii/S2214212617306014'
+                        target="_blank" rel="noopener">Securing images with a diffusion <br>mechanism based on
+                        Fractional <br>Brownian Motion</a></td>
+                <td class="column-2">Journal of <br>information security and <br>applications</td>
+                <td class="column-3">Manish Kumar, Sunil Kumar,<br>M.K. Das, Rajat Budhiraja,<br>Sanjeev Singh </td>
+                <td class="column-4">Information Security</td>
+                <td class="column-5">2018</td>
+            </tr>
+            <tr class="row-34 even">
+                <td class="column-1"><a href='https://www.sciencedirect.com/science/article/pii/S2214212618302825'
+                        target="_blank" rel="noopener">A cryptographic model for better<br> information security</a>
+                </td>
+                <td class="column-2">Journal of information security <br> and applications</td>
+                <td class="column-3">Sunil Kumar, Manish Kumar,<br>Rajat Budhiraja, M.K. Das,<br>Sanjeev Singh</td>
+                <td class="column-4">Information Security</td>
+                <td class="column-5">2018</td>
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.24/jspdf.plugin.autotable.min.js"></script>
+
+
+
+    <button id="downloadButton">Download PDF</button>
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable();
+
+            $('#downloadButton').on('click', function () {
+                downloadPDF();
+            });
+            $('#authorFilter').select2({
+                placeholder: 'Select Author',
+                allowClear: true
+            });
+
+            var categories = ['Sushant Jain', 'Amit Pundir', 'Sanjeev Singh', 'Geetika Jain Saxena', 'Osamah Mohammed', 'Vajratiya Vajrobol'];
+            var categoryFilter = $('#authorFilter');
+            categories.forEach(function (category) {
+                categoryFilter.append(new Option(category, category, false, false));
+            });
+
+            $('#publicationFilter').on('keyup', function () {
+                table.column(0).search(this.value).draw();
+                highlightSearch(0, this.value);
+            });
+
+            $('#publisherFilter').on('keyup', function () {
+                table.column(1).search(this.value).draw();
+                highlightSearch(1, this.value);
+            });
+
+            $('#authorFilter').on('change', function () {
+                applyAuthorFilter();
+            });
+
+            $('#authorLogic').on('change', function () {
+                applyAuthorFilter();
+            });
+
+            $('#keywordFilter').on('keyup', function () {
+                table.column(3).search(this.value).draw();
+                highlightSearch(3, this.value);
+            });
+
+            $('#yearFilter').on('keyup', function () {
+                table.column(4).search(this.value).draw();
+                highlightSearch(4, this.value);
+            });
+
+            function downloadPDF() {
+                var table = document.getElementById('example');
+
+                html2canvas(table, {
+                    onrendered: function (canvas) {
+                        var imgData = canvas.toDataURL('image/png');
+                        var pdf = new jspdf.jsPDF('p', 'pt', 'a4');
+
+                        var pageWidth = pdf.internal.pageSize.getWidth();
+                        var pageHeight = pdf.internal.pageSize.getHeight();
+                        var imgWidth = pageWidth - 20;
+                        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                        if (imgHeight > pageHeight) {
+                            pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                            pdf.addPage();
+                        } else {
+                            pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+                        }
+
+                        pdf.save('cpslabdata.pdf');
+                    }
+                });
+            }
+
+            function applyAuthorFilter() {
+                var selectedAuthors = $('#authorFilter').val();
+                var logic = $('#authorLogic').val();
+                var searchStr = '';
+
+                if (selectedAuthors && selectedAuthors.length > 0) {
+                    if (logic === 'AND') {
+                        searchStr = selectedAuthors.map(function (author) {
+                            return '(?=.*' + author + ')';
+                        }).join('');
+                        table.column(2).search(searchStr, true, false).draw();
+                    } else {
+                        searchStr = selectedAuthors.join('|');
+                        table.column(2).search(searchStr, true, false).draw();
+                    }
+                } else {
+                    table.column(2).search('', true, false).draw();
+                }
+
+                highlightSearch(2, searchStr);
+            }
+
+            function highlightSearch(columnIndex, searchValue) {
+                $('#example tbody tr').each(function () {
+                    var $td = $(this).find('td').eq(columnIndex);
+                    var cellText = $td.text();
+                    var regex = new RegExp('(' + searchValue.split('|').join('|') + ')', 'gi');
+                    var highlightedText = cellText.replace(regex, '<span class="highlight">$1</span>');
+                    $td.html(highlightedText);
+                });
+            }
+
+            table.on('draw.dt', function () {
+                [0, 1, 2, 3, 4].forEach(function (index) {
+                    var searchValue = table.column(index).search();
+                    highlightSearch(index, searchValue);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

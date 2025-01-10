@@ -1,0 +1,39 @@
+---
+// import EventCard from "./EventCard.astro";
+
+// const AllEvents = await Astro.glob('../../content/events/*.md');
+// console.log(" ~AllEvents", AllEvents );
+
+const { styles } = Astro.props
+
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+// const allEventArticles: CollectionEntry<'events'>[] = (await getCollection('events')).sort(
+// 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+// );
+
+const allEventArticles: CollectionEntry<'events'>[] = (await getCollection('events')).sort(
+	(a, b) => b.data.eventDate.valueOf() - a.data.eventDate.valueOf()
+);
+
+import { HOMEPAGE_EVENT_LIMIT } from "../../consts";
+import EventCard2 from "./EventCard2.astro";
+
+
+
+---
+
+
+<!-- <div class=` flex flex-start gap-12 justify-center items-stretch flex-wrap columns-1 sm:columns-2 md:columns-4 ${ styles }`> -->
+<!-- {AllEvents.map((event)=><EventCard event={event} />)} -->
+<!-- <EventCard event={AllEvents[0]}  /> -->
+<!-- </div> -->
+
+
+<div class=` flex flex-start gap-7 justify-center items-stretch flex-wrap columns-1 sm:columns-2 md:columns-4 ${ styles }`>
+    {allEventArticles.slice(0,HOMEPAGE_EVENT_LIMIT).map((event)=>  <EventCard2 event={event} slug={`/events/${event.slug}`} /> )}
+    <!-- <EventCard event={AllEvents[0]}  /> -->
+    </div>
+    
+ 

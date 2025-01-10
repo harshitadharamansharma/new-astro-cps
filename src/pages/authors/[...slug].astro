@@ -1,0 +1,25 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+// import BlogPost from "../../layouts/BlogPost.astro";
+import BlogPost from "../../layouts/BlogsPageLayout.astro";
+
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blogs");
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<"blogs">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<BlogPost {...post.data}>
+	<Content class="text-justify" />
+</BlogPost>
+
+

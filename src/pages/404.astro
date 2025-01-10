@@ -1,0 +1,20 @@
+---
+
+import Layout from "../layouts/BlogPost.astro";
+import ErrorDisplay from "../components/ErrorPage/errorDisplay.astro";
+
+---
+
+<Layout
+	
+    title="404 - Page Not Found"
+	description="The page you are looking for is not available."
+    >
+	<!-- pubDate={new Date("August 25 2024")}
+	heroImage="blog-placeholder-about.jpg" -->
+
+    <ErrorDisplay errStatus="404" />
+
+
+</Layout>
+

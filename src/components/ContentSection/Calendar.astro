@@ -1,0 +1,41 @@
+---
+import { formatEventTime } from "../../js/utils";
+
+import FullCalendar from '@fullcalendar/areact';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
+// Import FullCalendar CSS files
+// import '@fullcalendar/core/main.css';
+// import '@fullcalendar/daygrid/main.css';
+// import '@fullcalendar/timegrid/main.css';
+
+
+const { events } = Astro.props;
+
+// Map events to FullCalendar format
+const calendarEvents = events.map(event => {
+  const { eventDate, eventTime, eventTimeZone } = event.data;
+
+  // Use the formatEventTime utility to convert to local time
+  const localTime = formatEventTime(eventDate, eventTime, eventTimeZone);
+
+  // Check if localTime is a valid date string
+  if (!localTime) {
+    console.error(`Invalid local time for event: ${event.data.eventName}`);
+    return null; // Skip this event if localTime is invalid
+  }
+
+  return {
+    title: event.data.eventName,
+    start: localTime, // Use the ISO string directly
+  };
+}).filter(event => event !== null); // Remove invalid events
+
+---
+
+<FullCalendar
+  plugins={[dayGridPlugin, timeGridPlugin]}
+  initialView="timeGridWeek"
+  events={calendarEvents}
+/>

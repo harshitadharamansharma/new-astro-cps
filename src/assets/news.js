@@ -1,0 +1,8 @@
+[
+    { date: 'Sept 12, 2024' , href: 'https://www.linkedin.com/feed/update/urn:li:activity:7233332710872653824', text: 'We are thrilled to announce the successful completion of our plenary talk on "Towards Explainable, Responsible, and Autonomous Artificial Intelligence".' }, 
+    { date: 'Aug 10, 2024' , href: 'https://www.linkedin.com/posts/cypsilab_cpslab-innovation-nlp-activity-7234175962504904704-p6nh?utm_source=share&utm_medium=member_desktop', text: 'We are incredibly proud to announce that our research scholar, Tiya Vaj (Vajratiya Vajrabol), has been awarded the Favorable Project Award by the Jury at the Bhasha Techathon 2024!' }, 
+    { date: 'Jul 22, 2024' , href: 'https://www.linkedin.com/feed/update/urn:li:activity:7221106752627359744', text: 'We are thrilled to announce the successful conduction of our workshop on Designing User-Centric Interfaces: Best Practices and Emerging Trends held on July 12, 2024, at CPS Lab.' }, 
+    { date: 'Aug 10, 2024' , href: 'https://www.linkedin.com/posts/cypsilab_cpslab-innovation-nlp-activity-7234175962504904704-p6nh?utm_source=share&utm_medium=member_desktop', text: 'We are incredibly proud to announce that our research scholar, Tiya Vaj (Vajratiya Vajrabol), has been awarded the Favorable Project Award by the Jury at the Bhasha Techathon 2024!' }, 
+    { date: 'Jul 22, 2024' , href: 'https://www.linkedin.com/feed/update/urn:li:activity:7221106752627359744', text: 'We are thrilled to announce the successful conduction of our workshop on Designing User-Centric Interfaces: Best Practices and Emerging Trends held on July 12, 2024, at CPS Lab.' }, 
+  
+  ];

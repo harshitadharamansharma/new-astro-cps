@@ -1,0 +1,229 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Carousal from "../components/Carousal.astro";
+// import Tab from "../components/Tab.astro";
+import { Image } from "astro:assets";
+
+import News from "../components/News.astro";
+import DomainSection from "../components/HomePage/DomainSection";
+import SectionTitle from "../components/SectionTitle.astro";
+
+import MotoCard from "../components/HomePage/MotoCard.astro";
+
+import HeadingStyle1 from "../components/Headings/HeadingStyle1.astro";
+import HeadingStyle2 from "../components/Headings/HeadingStyle2.astro";
+import HeadingStyle3 from "../components/Headings/HeadingStyle3.astro";
+// import HeadingStyle3small from "../components/Headings/HeadingStyle3.astro";
+
+
+import CardType2 from "../components/HomePage/CardType2.astro";
+import CardType4 from "../components/HomePage/CardType4.jsx";
+
+import EventDisplay from "../components/ContentSection/EventDisplay.astro";
+
+import ButtonLarge from "../components/Buttons/ButtonLarge.astro";
+
+
+import { getCollection } from 'astro:content';
+import CardDisplay from '../components/HomePage/CardDisplay.jsx';
+
+import CypsiLogo from "../assets/cypsi_lab_logo.png";
+
+
+import CPSLogoWhite from "../assets/lab-Identity/logo_cypsi_white.png";
+import BlogDisplay2 from "../components/ContentSection/BlogDisplay2.astro";
+import BlogCardFeatured from "../components/ContentSection/BlogCardFeatured.astro";
+import Gallery from "../components/Gallery/Gallery.astro";
+import Testimonials6 from "../components/Testimonials/Testimonial6.astro";
+import HeroSection from "../components/HomePage/HeroSection.astro";
+import HeroSection2 from "../components/HomePage/HeroSection2.astro";
+import HeroSection3 from "../components/HomePage/HeroSection3.astro";
+
+
+// Load all markdown files in the 'domainsc' collection
+const domains = await getCollection('domainsc');
+
+var about_text =
+`
+The CyPSi Lab, founded in 1999 at the University of Delhi's Institute of Informatics and Communication (IIC), excels in Educational Technologies, scientific research, and Cyber-Physical Systems (CPS). It offers opportunities for cutting-edge R&D, global collaboration, and practical applications, driving entrepreneurship and delivering impactful solutions.`
+	// `The CyPSi Lab, established in 1999 at the Institute of Informatics and Communication (IIC) of University of Delhi has contributed to a wide range of domains from Educational Technologies, to scientific research papers and to Cyber Physical Systems (CPS).
+     
+	// The lab offers an opportunity to be at the forefront of Research and Development (R & D) in Cyber Physical Systems (CPS) & allied disciplines and collaborate with research groups worldwide to deal with real life challenges. The research outcomes are further developed by Product and Service groups thereby promoting entrepreneurship and their delivery to intended audiences.`;
+
+var accordian_data = {
+	"Human Centered Systems":
+		"Cyberization is all pervasive today with technology-driven engineering systems having a significant presence in almost all spheres of life. In fact, with each passing year, they are evolving at a very fast pace in terms of AI, computational capacities and their scope of use. While they offer numerous benefits to society on one hand, the current state of cyberization is creating an intellectual challenge to envision, design and research Human-Centered Systems for the future. Since human-centered systems integrate CPS with various social units – organizations, communities and distinctive social processes and practices; our lab envisions meeting the research challenges of making them more usable and sustainable.",
+	Healthcare:
+		"The demand for remote healthcare is getting more crucial than ever even as CPSs are making spectacular advancements in this sector. It is piloting technologies and software to address challenging healthcare issues and revolutionizing how myriad healthcare issues are tackled. The CPS healthcare ecosystem has evolved in telemedicine, connected-health, mobile-health and intelligent health in the last two decades. Healthcare-Cyber Physical Systems (H-CPS) networks are available anywhere, anytime and to anyone with the means to digital access. Yet, they are to be rigorously explored and are a matter of high research interest.",
+	"Cyber Security":
+		"CPSs are closely integrated physical processes for networking, computation, feedback loops and comprise several tiny devices with sensing, computing and wireless communication capabilities. These enhanced functionality, automation, and connectivity also bring significant cybersecurity challenges to the CPS. Moreover,  extensive connectivity makes CPS vulnerable to cyber threats and attacks, making safety, security and privacy essential research issues.",
+	Wearables:
+		"The recent spectacular progress in Sensor technologies and allied materials, internet of Things (IoT), Informations and Technology (ICT) and microelectronic fabrication techniques have created a significant stimulus towards the development of smart wearable devices. As a result, this sector is witnessing an explosive growth offering huge market and research opportunities. Wearable devices are complex systems of sensors and cross-domain communication networks handling large amounts of data with real-time decision-making capabilities. In addition, they provide continuous autonomous service over a long period. Therefore, rigorous research in computing and design technologies is required to adequately overcome these challenges to satisfy the stringent demands of wearable devices.",
+};
+
+
+
+const CardList2 = [
+  { itemText: 'PhD Programme', itemHref: 'https://www.du.ac.in/', bgImgUrl: './collab-images/phd-programme.jpg' }, 
+  { itemText: 'Research Internship', itemHref: 'https://cps.iic.ac.in/joinus', bgImgUrl: './collab-images/internship.jpg' }, 
+  { itemText: 'Incubation', itemHref: 'https://www.iic.ac.in/', bgImgUrl: './collab-images/project-fellowships.jpg' }, 
+
+];
+
+// import newsData from '../.../assets/news.json'; 
+
+const NewsList = [
+  { date: 'Sept 12, 2024' , href: 'https://www.linkedin.com/feed/update/urn:li:activity:7233332710872653824', text: 'We are thrilled to announce the successful completion of our plenary talk on "Towards Explainable, Responsible, and Autonomous Artificial Intelligence".' }, 
+  { date: 'Aug 10, 2024' , href: 'https://www.linkedin.com/posts/cypsilab_cpslab-innovation-nlp-activity-7234175962504904704-p6nh?utm_source=share&utm_medium=member_desktop', text: 'We are incredibly proud to announce that our research scholar, Tiya Vaj (Vajratiya Vajrabol), has been awarded the Favorable Project Award by the Jury at the Bhasha Techathon 2024!' }, 
+  { date: 'Jul 22, 2024' , href: 'https://www.linkedin.com/feed/update/urn:li:activity:7221106752627359744', text: 'We are thrilled to announce the successful conduction of our workshop on Designing User-Centric Interfaces: Best Practices and Emerging Trends held on July 12, 2024, at CPS Lab.' }, 
+  { date: 'Aug 10, 2024' , href: 'https://www.linkedin.com/posts/cypsilab_cpslab-innovation-nlp-activity-7234175962504904704-p6nh?utm_source=share&utm_medium=member_desktop', text: 'We are incredibly proud to announce that our research scholar, Tiya Vaj (Vajratiya Vajrabol), has been awarded the Favorable Project Award by the Jury at the Bhasha Techathon 2024!' }, 
+  { date: 'Jul 22, 2024' , href: 'https://www.linkedin.com/feed/update/urn:li:activity:7221106752627359744', text: 'We are thrilled to announce the successful conduction of our workshop on Designing User-Centric Interfaces: Best Practices and Emerging Trends held on July 12, 2024, at CPS Lab.' }, 
+
+];
+
+---
+
+<!doctype html>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+<html lang="en">
+	<head>
+		<BaseHead
+			title={SITE_TITLE}
+			description={SITE_DESCRIPTION}
+		/>
+	</head>
+
+	<body class="bg-white min-h-screen">
+
+		<div class="flex flex-col h-screen justify-between">
+			<Header />
+			<main 
+			>
+			<!-- class="mb-auto mt-4 sm:mt-8" -->
+				
+				<section class="hero-section">
+				<!-- <HeroSection2 about_text={about_text} logo={CPSLogoWhite} /> -->
+				<HeroSection3 about_text={about_text} logo={CypsiLogo} />
+				
+			</section>
+
+				<section class="scale-90">
+					<div class="bg-white w-full flex flex-col justify-center min-h-[20rem]">
+						<div class="flex flex-col gap-14 my-10 items-center mx-auto">
+							<hr>
+							<!-- <HeadingStyle3 Text="Research Areas" Case="uppercase" ColorHex="" /> -->
+
+							<CardType4 client:load />
+
+							
+						</div>
+					</div>
+				</section>
+				
+				<section>
+					<HeadingStyle2 Text="Spotlight" Case="uppercase" ColorHex="var(--accent)" />
+					<div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
+						<div class="grid grid-cols-1 sm:grid-cols-12 gap-8">
+					
+							<div class="sm:col-span-6 lg:col-span-6">
+
+								<p class="mx-2 text-slate-800 font-semibold text-2xl">Featured Blog</p>
+								<hr class="my-2 ">
+								<BlogCardFeatured />
+							</div>
+					
+							<div class="sm:col-span-6 lg:col-span-6">
+								<p class="mx-2 text-slate-800 font-semibold text-2xl">News & Updates</p>
+								<hr class="my-2 ">
+								<News NewsList= { NewsList } />
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class=" bg-[var(--gray-light)] ">
+					<div class="flex flex-col scale-75 gap-8">
+						
+						<HeadingStyle1 Text="Upcoming Events" Case="uppercase" ColorHex="var(--accent)" styles="pb-4" />
+						
+						<EventDisplay styles=""/>
+						
+						<ButtonLarge content="View Events" href="/events" class="mt-4"/>
+
+						<!-- <BlogDisplay styles="mt-4"/> -->
+						
+					</div>
+				</section>
+
+				<section>
+					<div class="flex flex-col gap-8 scale-75  ">
+						
+						<HeadingStyle3 Text="Articles" Case="titlecase" ColorHex="var(--accent)" styles="pb-4" />
+						
+						<BlogDisplay2 styles="my-4"/>
+						
+						<ButtonLarge content="View All Atricles" href="/blogs" class="mt-4"/>
+						
+					</div>
+					
+					<hr>
+
+				</section>
+
+				<!-- <section>
+					<div class="flex flex-col gap-8 py-24 m-2  ">
+						
+						<HeadingStyle2 Text="Gallery" Case="titlecase" ColorHex="var(--accent)" styles="pb-4" />
+						<Gallery />
+						<Testimonials />
+						<HeadingStyle3 Text="Their Experience" ColorHex="[var(--accent)]"/>
+	
+					</div>
+				</section> -->
+				
+				<!-- <section>
+					<div class="flex flex-col gap-8 py-24 m-2  ">
+						<HeadingStyle2 Text="Their Experience" Case="titlecase" ColorHex="var(--accent)" styles="pb-4" />
+						<Testimonials2 client:load/>
+					</div>
+				</section> -->
+
+
+
+				<!-- <section class="bg-[var(--gray-light)]">
+					<div class="flex flex-col py-12 scale-75  ">
+						<HeadingStyle1 Text="Their Experience" Case="titlecase" ColorHex="var(--accent)" styles="pb-4" />
+						<Testimonials6 />
+					</div>
+				</section> -->
+
+
+
+
+				<section class="bg-[var(--gray-light)]">
+					<div class = "bg-white w-full flex flex-col h-[30rem]  items-center justify-center">
+						<div class = "flex flex-col gap-8">
+    					<HeadingStyle1 Text="Collaborate with us" Case="uppercase" ColorHex="var(--accent)" LineColorHex="#0A0A0A"/>
+						<CardType2 itemList={ CardList2 } />
+						
+						</div>
+					</div>
+				</section>
+
+				
+
+				
+
+				<section>
+					<MotoCard class=""/>
+				</section>
+
+			</main>
+			<Footer />
+		</div>
+	</body>
+</html>
+

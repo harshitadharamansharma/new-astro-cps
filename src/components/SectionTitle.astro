@@ -1,0 +1,12 @@
+---
+
+const {SectionTitleText, StyleType, UrlLink} = Astro.props;
+
+
+const TitleStyle =( StyleType === "1"  ? "text-[47.078033447265625px] font-bold text-[#7f013c]" : "text-[47.078033447265625px] font-bold text-left text-[#7f013c] uppercase mx-auto ");
+---
+
+
+
+<p class={ TitleStyle }>{ SectionTitleText }</p>
+{ UrlLink && <a href="text-sm">{ UrlLink }</a> }

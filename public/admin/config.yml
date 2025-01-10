@@ -1,0 +1,110 @@
+media_folder: "src/assets/blog_images" # Location where files will be stored in the repo
+public_folder: "src/assets/blog_images" # The src attribute for uploaded media
+# when using the default proxy server port
+backend:
+  name: git-gateway
+  # branch: main
+
+local_backend:
+  # when using a custom proxy server port
+  url: http://localhost:8081/api/v1
+  # when accessing the local site from a host other than 'localhost' or '127.0.0.1'
+  allowed_hosts: ['127.0.0.1']
+
+collections:
+# ###############  BLOG Collection  ####################
+  # - name: "blog" # Used in routes, e.g., /admin/collections/blog
+  #   label: "Blog" # Used in the UI
+  #   folder: "src/content/blog" # The path to the folder where the documents are stored
+  #   create: true # Allow users to create new documents in this collection
+  #   fields: # The fields for each document, usually in frontmatter
+  #     - { label: "Title", name: "title", widget: "string" }
+  #     - { label: "Publish Date", name: "pubDate", widget: "datetime", format: "MMM D YYYY" }
+  #     - { label: "Featured Image", name: "heroImage", widget: "image" }
+  #     - { label: "Description", name: "description", widget: "text" }
+  #     - { label: "Body", name: "body", widget: "markdown" }
+
+
+# ###############  BLOG Articles ####################
+  - name: "blogs" # Used in routes, e.g., /admin/collections/blog
+    label: "Blogs Articles" # Used in the UI
+    folder: "src/content/blogs" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields for each document, usually in frontmatter
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Publish Date", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Author", name: "pubBy", widget: "string" }
+
+      - { label: "Featured Image", name: "heroImage", widget: "image" , hint: "Main image for the blog post" }
+      - { label: "Blog Card Image", name: "blogCardImage", widget: "object", fields: [
+          { label: "Image Source", name: "src", widget: "image", hint: "The image to display on the blog card" },
+          { label: "Alt Text", name: "alt", widget: "string", hint: "Image description for accessibility" }
+        ]}
+      - { label: "Blog Category", name: "blogCategory", widget: "select", options: ["Publication Updates", "News", "Lab Articles", "Others"], default: ["Lab Articles"], hint: "Select a category for the blog post" }
+      
+      # - { label: "Tags", name: "blogTags", widget: "tagsSelect", multiple: true, hint: "Select relevant tags from the list or add your own tag." }
+
+      - { label: "Tags", name: "blogTags", widget: "select", multiple: true, options: ["icdcece-2022", "conference-paper", "wireless-communication-technology", "cyber-physical-systems", "feature-selection", "machine-learning" ], allow_add: true, hint: "Select relevant tags from the list or add your own tag. Make sure that tags should not have capital case and space, it can be '-'(hyphen) separated." }
+
+      - { label: "Read Time", name: "readTime", widget: "string", hint: "Estimated reading time, e.g., '5 min'" }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Main content of the blog post" }
+
+
+# ###############  TEAM Collection  ################
+  - name: "people"
+    label: "People"
+    folder: "src/content/people"
+    create: true
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Position", name: "position", widget: "string" }
+      - { label: "Bio", name: "bio", widget: "markdown" }
+      - { label: "Photo", name: "photo", widget: "image" }
+
+#  ###############  PUBLICATIONS Collection  ################
+  - name: "publications"
+    label: "Publications"
+    folder: "src/content/publications"
+    create: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Authors", name: "authors", widget: "list", fields: [
+          { label: "Name", name: "name", widget: "string" },
+        ] }
+      - { label: "Abstract", name: "abstract", widget: "markdown" }
+      - { label: "Link", name: "link", widget: "string" }
+
+
+#  ###############  EVENTS Collection  ################
+
+  - name: "events"
+    label: "Events"
+    folder: "src/content/events"
+    create: true
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "markdown" }
+
+      - { label: "Publish Date", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Author", name: "pubBy", widget: "string" }
+
+      - { label: "Event Name", name: "eventName", widget: "string" }
+      - { label: "Event Date", name: "eventDate", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Event Time", name: "eventTime", widget: "string", hint: "Time in 12-hour format (e.g., 02:00 PM)" }
+      - { label: "Event Time Zone", name: "eventTimeZone", widget: "string",    options: ["IST", "UTC", "GMT", "CET", "EET", "EST", "PST", "JST", "AEST"],  hint: "Timezone abbreviation (e.g., IST, UTC)" }
+      
+      - { label: "Event Category", name: "eventCategory", widget: "select", options: ["Plenary Talk", "Lecture", "Workshop", "Conference", "Seminar"] }
+      - { label: "Event Tags", name: "eventTags", widget: "select", multiple: true, options: ["cps-plenary-talk", "lecture-updates", "machine-learning"], allow_add: true, hint: "Select relevant tags from the list or add your own tag." }
+      
+      - { label: "Event Description", name: "eventDescription", widget: "markdown" }
+
+      - { label: "Event Card Image", name: "eventCardImage", widget: "object", fields: 
+          [
+            { label: "Image Source", name: "src", widget: "image" }, 
+            { label: "Alt Text", name: "alt", widget: "string" }
+          ] 
+        }
+      
+      - { label: "Hero Image", name: "heroImage", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown", hint: "Main content of the event post" }

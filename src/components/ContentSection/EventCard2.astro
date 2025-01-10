@@ -1,0 +1,92 @@
+---
+const {event, slug} = Astro.props
+
+
+
+// library imports
+import { Image } from 'astro:assets';
+
+
+// utils imports
+import { slugify, formatDate, formatEventTime} from "../../js/utils";
+
+// const { title, eventDate, pubBy, eventCardImage, eventDescription, eventCategory, pubDate, url, tagType } = Astro.props;
+
+// const Tag = tagType;
+
+const { title, heroImage, eventDate, eventTime, pubBy, eventCardImage, eventName, eventDescription, eventTags, eventCategory, pubDate } = event.data;
+
+// component imports
+import Link from "../Buttons/Link.astro";
+import ButtonSmall from '../Buttons/ButtonSmall.astro';
+// import imageee from `${event.frontmatter.eventCardImage.src}`
+
+---
+
+<!-- <p>{event.frontmatter.title}</p> -->
+<!-- <pre>{JSON.stringify(event.frontmatter, null, 2)}</pre> -->
+
+
+
+<div class="event-card items-stretch relative max-w-sm bg-white border border-gray-200 rounded-sm shadow dark:bg-gray-800 dark:border-gray-700 group group-hover:shadow-md ">
+    <!-- <a href="#">
+        <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+    </a> -->
+    <a class="relative overflow-hidden " href={ slug } aria-hidden="true" tabindex="-1">
+        <img
+          src={eventCardImage.src || heroImage }
+          alt={eventCardImage?.alt || 'Event image'}
+  
+          class="object-cover overflow-hidden aspect-square"
+        >
+        
+        <div class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-40"></div>
+        
+        {eventDate && 
+        <div class="scale-75 absolute right-5 top-80 py-2 px-6 bg-opacity-90 border-black bg-slate-800 max-w-min rounded-sm flex flex-col justify-center items-center">
+            <p class="text-white uppercase text-lg">{formatDate(eventDate).split(" ")[1]}</p>
+            <p class="text-white text-3xl">{formatDate(eventDate).split(" ")[0]}</p>
+            <p class="text-sm tracking-wide leading-5 text-white uppercase">{formatDate(eventDate).split(" ")[2]}</p>
+        </div>
+        }
+
+      </a>
+
+
+
+    <div class="p-5 flex flex-col items-start gap-2 mb-6">
+        <!-- <p class="px-4 leading-5 bg-slate-300 hover:bg-slate-700 max-w-min rounded-sm text-xs mb-2 text-white uppercase ">tags</p> -->
+        
+        <!-- this could be a tag list -->
+        <!-- <span class="font-semibold min-w-max leading-5 tracking-wide uppercase transition ease-in-out delay-150 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-[var(--accent)] duration-300 bg-gray-100 text-gray-800 text-xs me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">tag 2</span> -->
+        
+        <span class="mx-2 first:ml-0 last:mr-0 font-bold min-w-max leading-5 tracking-wide uppercase 
+        transition ease-in-out delay-150 
+        text-[var(--accent)]
+        text-md      
+        hover:text-[var(--accent-2)] duration-100 
+         
+        me-2 py-0.5 rounded 
+        dark:bg-gray-700 dark:text-gray-300">
+        {eventCategory}
+        </span>
+
+        <a href={ slug }>
+          <p class="mb-2 text-lg text-left font-bold tracking-tight text-gray-900 dark:text-white transition ease-in-out delay-100 hover:text-[var(--accent-2)]">{ eventName }</p>
+        </a>
+
+        
+<!-- description -->
+      <!-- <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 pb-16">{ eventDescription }</p> -->
+        
+      <!-- Time -->
+      <!-- <p class="mb-14 text-md font-poppins font-semibold text-gray-700 hover:text-[var(--accent)] duration-100 ">Time: {formatEventTime(event.data.eventDate, event.data.eventTime, event.data.eventTimeZone)}</p> -->
+      <p class="mb-14 text-md font-poppins font-semibold text-gray-700 hover:text-[var(--accent)] duration-100 ">Time: { event.data.eventTime } { event.data.eventTimeZone }</p>
+      
+      <div class="absolute bottom-10 left-[38%] mx-auto">
+        <ButtonSmall content="View" href={ slug } icon="true"/>
+      </div>
+    
+    </div>
+</div>
+

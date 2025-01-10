@@ -1,0 +1,37 @@
+---
+
+import { Image } from 'astro:assets';
+import img404 from '../../assets/error-img/error-404-2.png'
+import img500 from '../../assets/error-img/error-500.png'
+import ButtonOutline from '../Buttons/ButtonOutline.astro';
+
+const Error = [
+    {code: 404, image: img404 , message: "Sorry, we couldn't find the page you were looking for."},
+    {code: 500, image: img500, message: "Some internal server error"}
+]
+
+// const Error = [
+//     {code: 404, image: "/../../assets/error-img/error-404.png" , message: "Sorry, we couldn't find the page you were looking for."},
+//     {code: 500, image: "/../../assets/error-img/error-500.png" , message: "Some internal server error"}
+// ]
+
+const { errStatus } = Astro.props
+
+// Find the error object corresponding to the errStatus prop
+const error = Error.find(err => err.code === errStatus) || Error[0];
+
+
+---
+
+<div class="flex flex-col items-center justify-items-center gap-7">
+    <!-- <Image src={ error.image } alt={errStatus.toString()} height={250} width={250} class="mt-10" /> -->
+    <Image src={ error.image } alt={errStatus.toString()} height={500} class="mt-10" />
+    
+    <h1 class="text-5xl">Error {errStatus}</h1>
+    <p class="text-2xl mb-10">
+      { error.message }
+    </p>
+    <!-- <a href="/" class="inline-block bg-gray-100 p-2 mb-6 hover:bg-[var(--acccent)] hover:text-white">Go Back Home</a> -->
+     <ButtonOutline content="Go Back to Home" href="/" />
+     
+</div>

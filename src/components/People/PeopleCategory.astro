@@ -1,0 +1,102 @@
+---
+import type { Props } from "astro";
+import PeopleCards from "./PeopleCards.astro";
+import PeopleCards2 from "./PeopleCards2.astro";
+import PeopleCards3 from "./PeopleCards3.astro"; // Importing PeopleCards3
+import HeadingStyle4 from "../Headings/HeadingStyle4.astro";
+
+const { CategoryName, cardType }: Props = Astro.props;
+
+const AllPeople = await Astro.glob('../../content/people/*.md');
+
+// Filter the people based on the category
+const filteredPeople = AllPeople.filter(person => person.frontmatter.category === CategoryName);
+---
+<HeadingStyle4 Text={CategoryName} ColorHex="var(--accent)"/>
+
+
+
+<div class=" flex flex-wrap justify-stretch items-stretch">
+ 
+  {filteredPeople.map((personnel) => (
+    cardType === "1" ? (
+      <PeopleCards
+        name={personnel.frontmatter.name}
+        img={personnel.frontmatter.img}
+        designation={personnel.frontmatter.designation}
+        qualification={personnel.frontmatter.qualification}
+        description={personnel.frontmatter.description}
+        category={personnel.frontmatter.category}
+        section={personnel.frontmatter.section}
+        LinkedIn={personnel.frontmatter.LinkedIn}
+        Scopus={personnel.frontmatter.Scopus}
+        OrcID={personnel.frontmatter.OrcID}
+        ResearchGate={personnel.frontmatter.ResearchGate}
+        GoogleScholar={personnel.frontmatter.GoogleScholar}
+        Medium={personnel.frontmatter.Medium}
+      />
+    ) : cardType === "2" ? (
+      <PeopleCards2
+        name={personnel.frontmatter.name}
+        img={personnel.frontmatter.img}
+        designation={personnel.frontmatter.designation}
+        qualification={personnel.frontmatter.qualification}
+        description={personnel.frontmatter.description}
+        category={personnel.frontmatter.category}
+        section={personnel.frontmatter.section}
+        LinkedIn={personnel.frontmatter.LinkedIn}
+        Scopus={personnel.frontmatter.Scopus}
+        OrcID={personnel.frontmatter.OrcID}
+        ResearchGate={personnel.frontmatter.ResearchGate}
+        GoogleScholar={personnel.frontmatter.GoogleScholar}
+        Medium={personnel.frontmatter.Medium}
+      />
+    ) : (
+      <PeopleCards3
+        name={personnel.frontmatter.name}
+        img={personnel.frontmatter.img}
+        designation={personnel.frontmatter.designation}
+        qualification={personnel.frontmatter.qualification}
+        description={personnel.frontmatter.description}
+        category={personnel.frontmatter.category}
+        section={personnel.frontmatter.section}
+        LinkedIn={personnel.frontmatter.LinkedIn}
+        Scopus={personnel.frontmatter.Scopus}
+        OrcID={personnel.frontmatter.OrcID}
+        ResearchGate={personnel.frontmatter.ResearchGate}
+        GoogleScholar={personnel.frontmatter.GoogleScholar}
+        Medium={personnel.frontmatter.Medium}
+      />
+    )
+  ))}
+</div>
+
+
+<style>
+
+
+.social-button {
+
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
+  width: 24px; /* Button width */
+  height: 24px; /* Button height */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex; /* Center the SVG inside */
+  align-items: center; /* Center SVG vertically */
+  justify-content: center; /* Center SVG horizontally */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.social-button svg {
+  fill:  var(--accent); /* Icon color */
+  width: 100%; /* Make SVG scale to the button's width */
+  height: 100%; /* Make SVG scale to the button's height */
+}
+
+{/* .social-button:hover svg{
+  fill: var(--accent-dark); /* svg color on hover */
+} 
+
+  
+    </style>

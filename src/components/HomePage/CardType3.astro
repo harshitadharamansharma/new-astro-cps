@@ -1,0 +1,33 @@
+---
+interface Props {
+    itemList: {
+        itemText?: string;
+        itemHref?: string;
+        bgImgUrl?: string;
+    }[];
+}
+
+const {itemList=[]}: Props = Astro.props
+---
+
+<div class=" w-auto flex justify-center ml-[30px] mr-[15px] my-5 xs:flex-col md:flex-row">
+
+    {itemList.length > 0 && (
+        itemList.map((item) => (
+        
+        <div class={`card bg-[url(${ item.bgImgUrl })] text-[white] h-[232px] w-[426.66px] no-underline bg-cover bg-center border border-solid border-gray-500 group`}>
+            <a href={ item.itemHref } >
+                <div class="h-full w-full bg-[rgba(57,13,40,0.96)] text-center text-[white] group-hover:bg-[rgba(43,24,36,0.53)]">
+                    <div class=" font-poppins text-3xl font-bold pt-24">{item.itemText}</div>
+                </div>
+            </a>
+        </div>
+        ))
+    )}
+
+</div>
+
+
+<style>
+
+</style>

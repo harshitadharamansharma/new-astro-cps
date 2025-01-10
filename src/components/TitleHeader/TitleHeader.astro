@@ -1,0 +1,22 @@
+---
+const { title, bgImg } = Astro.props
+---
+
+
+<div class="w-full">
+  {bgImg && (
+    <div
+      class="relative w-full h-[25rem] max-h-[25rem] overflow-hidden pt-32 bg-no-repeat bg-center bg-cover"
+      style={`background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9)), url(${bgImg})`}
+    >
+      {/* <!-- Title Wrapper --> */}
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-[80rem] py-4">
+        <h3 class="text-white font-bold text-5xl font-poppins">
+          {title}
+        </h3>
+      </div>
+      </div>
+    </div>
+  )}
+</div>
