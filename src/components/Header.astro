@@ -7,7 +7,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header
-	class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 sm:py-8 transition-all duration-300 z-50"   
+	class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 sm:py-8 transition-all duration-300 z-50"
 	id="main-header">
 	<nav class="container mx-auto px-4 flex justify-between items-center">
 		<a
@@ -41,22 +41,55 @@ const currentPath = Astro.url.pathname;
 		<div
 			id="sidebar"
 			class="fixed top-0 right-0 bottom-0 w-64 md:bg-white bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out sm:relative sm:transform-none sm:shadow-none sm:w-auto px-0 sm:px-6">
-			<div class="block sm:hidden py-6"></div>   
-			<ul class="flex flex-col space-y-8 p-6 sm:flex-row sm:space-y-0 sm:space-x-6 sm:p-0 text-[var(--accent)]">
+			<div class="block sm:hidden py-6"></div>
+			<ul
+				class="flex flex-col space-y-8 p-6 sm:flex-row sm:space-y-0 sm:space-x-6 sm:p-0 text-[var(--accent)]">
 				<!-- <hr class="p-0 m-0" /> -->
-<!-- For the HeaderLink components, pass props directly like this -->
-<HeaderLink href="/" isActive={currentPath === "/"}>Home</HeaderLink>
+				<!-- For the HeaderLink components, pass props directly like this -->
+				<HeaderLink
+					href="/"
+					isActive={currentPath === "/"}
+					>Home</HeaderLink
+				>
 
-<!-- Ensure your paths are correct -->
-<HeaderLink href="/events" isActive={currentPath === "/events"}>Events</HeaderLink>
-<HeaderLink href="/blogs" isActive={currentPath === "/blogs"}>Articles</HeaderLink>
-<HeaderLink href="/research" isActive={currentPath === "/research"}>Research</HeaderLink>
-<HeaderLink href="/publications" isActive={currentPath === "/publications"}>Publications</HeaderLink>
-<HeaderLink href="/people" isActive={currentPath === "/people"}>People</HeaderLink>
-<HeaderLink href="/join" isActive={currentPath === "/join"}>Join Us</HeaderLink>
-<HeaderLink href="/contact" isActive={currentPath === "/contact"}>Contact Us</HeaderLink>
+				<!-- Ensure your paths are correct -->
+				<HeaderLink
+					href="/events"
+					isActive={currentPath === "/events"}
+					>Events</HeaderLink
+				>
+				<HeaderLink
+					href="/blogs"
+					isActive={currentPath === "/blogs"}
+					>Articles</HeaderLink
+				>
+				<HeaderLink
+					href="/research"
+					isActive={currentPath === "/research"}
+					>Research</HeaderLink
+				>
+				<HeaderLink
+					href="/publications"
+					isActive={currentPath === "/publications"}
+					>Publications</HeaderLink
+				>
+				<HeaderLink
+					href="/people"
+					isActive={currentPath === "/people"}
+					>People</HeaderLink
+				>
+				<HeaderLink
+					href="/join"
+					isActive={currentPath === "/join"}
+					>Join Us</HeaderLink
+				>
+				<HeaderLink
+					href="/contact"
+					isActive={currentPath === "/contact"}
+					>Contact Us</HeaderLink
+				>
 
-<!-- 
+				<!-- 
 <HeaderLink
 href="/"
 isActive={currentPath === "/"}
@@ -103,10 +136,10 @@ isActive={currentPath === "/contact"}
 </header>
 
 <script>
-	const header = document.getElementById("main-header");
-	const logo = document.getElementById("header-logo");
-	const menuToggle = document.getElementById("menu-toggle");
-	const sidebar = document.getElementById("sidebar");
+	const header = document.getElementById("main-header")!;
+	const logo = document.getElementById("header-logo")!;
+	const menuToggle = document.getElementById("menu-toggle")!;
+	const sidebar = document.getElementById("sidebar")!;
 
 	let lastScrollY = window.scrollY;
 
@@ -170,7 +203,6 @@ isActive={currentPath === "/contact"}
 	@media (min-width: 640px) {
 		:global(body) {
 			padding-top: 7rem;
-			
 		}
 	}
 </style>

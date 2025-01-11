@@ -1,16 +1,12 @@
 ---
-import type { Props } from 'astro'
+// import type { Props } from 'astro'
 
-const {
-    content, 
-    style, 
-    href, 
-    colorFill="var(--accent-hover)",
-}:Props = Astro.props
-
-
+const { content, style, href, colorFill = "var(--accent-hover)" } = Astro.props;
 ---
 
-<a type="button" href={ href } class="w-[30%]  mx-auto items-center font-bold text-lg text-center text-white bg-[var(--accent-2)] hover:bg-[var(--accent-hover)] focus:ring-4 focus:ring-[var(--accent-focus)] rounded-sm px-5 py-3">
-  { content }
+<a
+	type="button"
+	href={href}
+	class="w-[30%] mx-auto items-center font-bold text-lg text-center text-white bg-[var(--accent-2)] hover:bg-[var(--accent-hover)] focus:ring-4 focus:ring-[var(--accent-focus)] rounded-sm px-5 py-3">
+	{content}
 </a>

@@ -1,56 +1,69 @@
 ---
-import type { Props } from 'astro'
-import PeopleSocials from './PeopleSocials.astro'
+// import type { Props } from "astro";
+import PeopleSocials from "./PeopleSocials.astro";
 
-const { 
-  // imageList = [], 
-        img = '', 
-        imgAlt = "Image of the Lab Member",
-        name = "Person Name", 
-        designation = "Professor", 
-        qualification = "Ph.D., University of Delhi", 
-        description = "Sanjeev Singh, Ph.D. (University of Delhi, 1997), has over 20 years of experience teaching M.Sc. Informatics and specializes in networks, security, and communication technologies, with 70+ research publications.", 
-        
-        socialList = [] , 
-        LinkedIn = '',
-        Scopus = '',
-        OrcID = '',
-        ResearchGate = '',
-        GoogleScholar = '',
-        Medium = '',
-        
-        category = "Faculty Members",
-        section = "",
-        additionalHtml = "",
-    } :Props = Astro.props
-       
+const {
+	// imageList = [],
+	img = "",
+	imgAlt = "Image of the Lab Member",
+	name = "Person Name",
+	designation = "Professor",
+	qualification = "Ph.D., University of Delhi",
+	description = "Sanjeev Singh, Ph.D. (University of Delhi, 1997), has over 20 years of experience teaching M.Sc. Informatics and specializes in networks, security, and communication technologies, with 70+ research publications.",
 
-    // this should be mapped inside the People Category:-
+	socialList = [],
+	LinkedIn = "",
+	Scopus = "",
+	OrcID = "",
+	ResearchGate = "",
+	GoogleScholar = "",
+	Medium = "",
+
+	category = "Faculty Members",
+	section = "",
+	additionalHtml = "",
+} = Astro.props;
+
+// this should be mapped inside the People Category:-
 // const AllPeople = await Astro.glob("../content/")/
-
 ---
 
-<div class=' card flex items-center md:flex-row p-6 gap-4 border-dashed rounded-lg shadow-lg hover:shadow-md xs:flex-col '>
-        
-  <div class=' image-container w-full h-auto max-w-[200px] mx-auto'>
-    <img class=' object-contain w-full h-auto ' src={img} alt={ imgAlt } />
-    {/* <img class='basis-[1/3] border-r-[50%]' src={`{image}`} />  */}
-  </div>
+<div
+	class="card flex items-center md:flex-row p-6 gap-4 border-dashed rounded-lg shadow-lg hover:shadow-md xs:flex-col">
+	<div class="image-container w-full h-auto max-w-[200px] mx-auto">
+		<img
+			class="object-contain w-full h-auto"
+			src={img}
+			alt={imgAlt}
+		/>
+		{/* <img class='basis-[1/3] border-r-[50%]' src={`{image}`} />  */}
+	</div>
 
-  <div class=' flex flex-col gap-2 mx-auto w-full'>
-     <!-- w-full -->
-    
-    <div class='details flex flex-col items-center'>
-      <p class='text-[#192f59] text-xl font-bold uppercase'>{ name } </p>
-      <hr class="w-full"/>
-      {  designation && <p class='designation font-semibold text-sm text-[#7A7A7A]'>{ designation }</p>}
-      <p class='qualification text-sm text-[#7A7A7A] font-normal'>{ qualification }</p>
-    </div>
+	<div class="flex flex-col gap-2 mx-auto w-full">
+		<!-- w-full -->
 
-        
-    <PeopleSocials LinkedIn={LinkedIn} GoogleScholar={GoogleScholar}, Scopus={Scopus}, OrcID={OrcID}, ResearchGate={ResearchGate}, Medium={Medium}/>
-      </div>
-  </div>
+		<div class="details flex flex-col items-center">
+			<p class="text-[#192f59] text-xl font-bold uppercase">{name}</p>
+			<hr class="w-full" />
+			{
+				designation && (
+					<p class="designation font-semibold text-sm text-[#7A7A7A]">{designation}</p>
+				)
+			}
+			<p class="qualification text-sm text-[#7A7A7A] font-normal">{qualification}</p>
+		</div>
 
-
-  
+		<PeopleSocials
+			LinkedIn={LinkedIn}
+			GoogleScholar={GoogleScholar}
+			,
+			Scopus={Scopus}
+			,
+			OrcID={OrcID}
+			,
+			ResearchGate={ResearchGate}
+			,
+			Medium={Medium}
+		/>
+	</div>
+</div>

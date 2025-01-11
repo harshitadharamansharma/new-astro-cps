@@ -1,18 +1,19 @@
 ---
-import type { Props } from 'astro'
+// import type { Props } from 'astro'
 
 const {
-    content=`<i class="fa fa-arrow-right"></i>`, 
-    style, 
-    href, 
-    colorFill="var(--accent)",
-    icon = "false"
-}:Props = Astro.props
-
-
+	content = `<i class="fa fa-arrow-right"></i>`,
+	style,
+	href,
+	colorFill = "var(--accent)",
+	icon = "false",
+} = Astro.props;
 ---
 
-<a type="button" href={ href } class=` text-white bg-[${colorFill}] hover:bg-[var(--accent-hover)] focus:ring-4 focus:ring-[var(--accent-focus)] font-medium rounded-sm text-sm px-5 py-2.5 me-2`>
-   <span>{ content }</span>
-   {icon==="true" && <i class="fa fa-arrow-right"></i>}
+<a
+	type="button"
+	href={href}
+	class=` text-white bg-[${colorFill}] hover:bg-[var(--accent-hover)] focus:ring-4 focus:ring-[var(--accent-focus)] font-medium rounded-sm text-sm px-5 py-2.5 me-2`>
+	<span>{content}</span>
+	{icon === "true" && <i class="fa fa-arrow-right" />}
 </a>

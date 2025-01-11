@@ -4,7 +4,8 @@ import Carousal from "../Carousal.astro";
 
 import type { Props } from 'astro'
 const { 
-    about_text, logo
+    about_text, 
+    logo
     } = Astro.props
        
 ---
@@ -31,7 +32,7 @@ const {
        
             <div class="h-full flex flex-col items-left justify-end gap-1 my-10 items-center">
                 <div class="about flex md:flex-row flex-col gap-8 mx-20 items-center">
-                    <img src={ logo.src } alt="CyPSi - Logo - white" class=" h-[160px] align-left ml-10"/>
+                    <!-- <img src={ logo.src } alt="CyPSi - Logo - white" class=" h-[160px] align-left ml-10"/> -->
                     <div>
                         <h2
                             class="Titlecase text-white font-poppins font-bold text-xl sm:text-2xl leading-2 sm:leading-2">
