@@ -16,9 +16,6 @@ var { title, description, pubDate, updatedDate, heroImage, pubBy, readTime, blog
 heroImage = "/../../" + heroImage;
 blogCardImage = "/../../" + blogCardImage;
 
-
-
-
 import TitleHeader from "../components/TitleHeader/TitleHeader.astro"
 import ShareButtons from "../components/Buttons/ShareButtons.astro";
 
@@ -86,14 +83,14 @@ import ShareButtons from "../components/Buttons/ShareButtons.astro";
 							</div>
 							<!-- <FormattedDate date={pubDate} /> -->
 							<p>{formatDate(pubDate)}</p>
-							{
+							<!-- {
 								updatedDate && (
 									<div class="italic">
 										{/* Last updated on <FormattedDate date={updatedDate} /> */}
 										Last updated on {formatDate(updatedDate)} 
 									</div>
 								)
-							}
+							} -->
 						</div>
 						<h1 class="m-0 mb-2 text-3xl font-bold">{title}</h1>
 						<hr class="border-gray-300" />
