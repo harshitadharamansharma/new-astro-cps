@@ -69,8 +69,10 @@ const updatesCollection = defineCollection({
 export const collections = {
   blogs: blogCollection,
   events: eventCollection,
-  news: newsCollection,
-  updates: updatesCollection,
+  // people:,
+  // publications:,
+  // news: newsCollection,
+  // updates: updatesCollection,
 };
 // import { defineCollection, z } from 'astro:content';
 

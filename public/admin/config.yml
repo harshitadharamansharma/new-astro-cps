@@ -3,7 +3,9 @@ public_folder: "src/assets/blog_images" # The src attribute for uploaded media
 # when using the default proxy server port
 backend:
   name: git-gateway
-  # branch: main
+  branch: main
+
+publish_mode: editorial_workflow
 
 local_backend:
   # when using a custom proxy server port
