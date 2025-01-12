@@ -7,9 +7,14 @@ import FormattedDate from "../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import Prose from "../components/Prose.astro";
 
-type Props = CollectionEntry<"blog">["data"];
 
-var { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+// type Props = CollectionEntry<"blogs">["data"];
+
+const { title, 
+	description, 
+	// pubDate, 
+	heroImage 
+} = Astro.props;
 // heroImage = "/" + heroImage;
 
 

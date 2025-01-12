@@ -10,6 +10,8 @@ import react from "@astrojs/react";
 
 import icon from "astro-icon";
 
+import node from '@astrojs/node';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
@@ -18,6 +20,9 @@ export default defineConfig({
   // vite: {
   //   plugins: [svgLoader()]
   // },
+  adapter: node({
+    mode: 'standalone',
+  }),
 
   content: {
     // Define the schema for your content collection
